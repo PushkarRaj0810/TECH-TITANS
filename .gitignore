@@ -1,0 +1,75 @@
+# --------------------------------------
+# Root ignore file for civictrack-integrator
+# --------------------------------------
+
+# 🧱 Node.js & TypeScript 📦
+# Exclude installed modules and build artifacts:
+node_modules/
+dist/
+build/
+.eslintcache
+.rpt2_cache_cjs/
+.rts2_cache_umd/
+.rts2_cache_es/
+*.tsbuildinfo
+
+# 🌱 Next.js
+.next/
+out/
+
+# 🐳 Logs and runtime files
+logs/
+*.log
+npm-debug.log*
+yarn-error.log*
+coverage/
+.nyc_output/
+coverage-final.json
+
+# 📁 Dependency Manifest / Package manager
+package-lock.json
+yarn.lock
+.pnpm-debug.log
+
+# 🔧 Environment / config files
+.env
+.env.local
+.env.{development,test,production}.local
+!.env.example
+
+# 🧪 IDE / Editor folders
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# 🖥️ OS / system
+.DS_Store
+Thumbs.db
+
+# ⚙️ Docker & Compose
+docker-compose.override.yml
+docker-compose.*.yml
+.env.*
+
+# 🪄 AWS or local credentials files
+aws-credentials.json
+*.pem
+
+# 📦 Cache / bundlers
+.cache/
+.parcel-cache/
+.ionic/
+
+# 📊 Reports & other temporary folders
+reports/
+trash/
+*.pid
+*.seed
+*.pid.lock
+.npm/
+
+
+
+
+
