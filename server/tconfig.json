@@ -1,0 +1,44 @@
+// server/tsconfig.json
+{
+  "compilerOptions": {
+    "target": "es2022",                          // modern syntax, async/await
+    "module": "commonjs",                        // runtime-agnostic — Node.js 18+ supports
+    "moduleResolution": "node",                  // import resolution similar to Node
+    "strict": true,                              // enables all strict TS checks
+    "esModuleInterop": true,                     // conversion between ES and CommonJS
+    "skipLibCheck": true,                        // skip .d.ts typechecking for faster build
+    "resolveJsonModule": true,                   // allow import your open311/services.json
+    "forceConsistentCasingInFileNames": true,    // consistent imports across OSes
+    "sourceMap": true,                           // generate maps for better TS debugging in runtime
+    "incremental": true,                         // fast subsequent compiles in build tooling
+    "rootDir": "src",                            // source code entry folder
+    "outDir": "dist",                            // compiled code output folder
+    "emitDecoratorMetadata": true,               // required for TypeORM’s decorators
+    "experimentalDecorators": true               // allow usage of TS decorators
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts"],
+  "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.ts"]
+}
+
+| Option                                                            | Reason                                                                                      |
+| ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `"emitDecoratorMetadata": true`, `"experimentalDecorators": true` | Required for TypeORM to process `@Entity`, `@Column`, etc. ([tduyng.medium.com][1])         |
+| `"target": "es2022"`                                              | Supports latest features like top-level `await` and class-fields                            |
+| `"module": "commonjs"`                                            | Default Node module system; TypeORM and many libraries expect it                            |
+| `"strict": true`                                                  | Enables full suite of type safety — essential for scalable backend ([tduyng.medium.com][2]) |
+| `"skipLibCheck": true`                                            | Speeds up compiles by skipping checking of `@types/*` declarations                          |
+| `"rootDir"` / `"outDir"`                                          | Separates source and built code cleanly; easier Docker layering                             |
+| `"incremental": true`                                             | Enables `.tsbuildinfo`; used by TypeScript to skip recompiling unchanged files              |
+
+[1]: https://tduyng.medium.com/essential-tsconfig-json-options-you-should-use-3187af924221?utm_source=chatgpt.com "Essential tsconfig.json options you should use | by Duy NG | Medium"
+[2]: https://tduyng.medium.com/essential-tsconfig-json-options-you-should-use-3187af924221 "Essential tsconfig.json options you should use | by Duy NG | Medium"
+
+
+{
+  "scripts": {
+    "build": "rimraf dist && tsc -p tsconfig.json",
+    "start:prod": "node dist/app.js",
+    "dev": "ts-node --transpile-only src/app.ts", // use in fast local dev
+    "watch:dev": "nodemon --watch src --exec \"ts-node --transpile-only src/app.ts\""
+  }
+}
