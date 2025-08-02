@@ -1,0 +1,74 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgis/postgis:16-3.4-alpine
+    container_name: civictrack_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: civicdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: civictrack_backend
+    depends_on:
+      - db
+    ports:
+      - "4000:4000"
+    env_file:
+      - ./server/.env
+    restart: on-failure
+
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: civictrack_frontend
+    depends_on:
+      - backend
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./client/.env
+    restart: on-failure
+
+volumes:
+  db_data:
+
+NODE.JS (backend)
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+FROM node:20-alpine
+WORKDIR /app
+COPY --from=builder /app ./
+EXPOSE 4000
+CMD ["npm", "start"]
+
+client/Dockerfile (Next.js frontend)
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+FROM node:20-alpine
+WORKDIR /app
+COPY --from=builder /app ./
+EXPOSE 3000
+CMD ["npm", "start"]
