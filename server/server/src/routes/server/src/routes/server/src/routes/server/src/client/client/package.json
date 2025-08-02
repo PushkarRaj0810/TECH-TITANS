@@ -1,0 +1,37 @@
+{
+  "name": "civictrack-client",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .ts,.tsx"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "leaflet": "^1.9.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-leaflet": "^4.2.1",
+    "react-router-dom": "^6.23.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.30",
+    "@types/react-dom": "^18.2.14",
+    "@vitejs/plugin-react": "^4.1.0",
+    "eslint": "^8.56.0",
+    "eslint-plugin-react": "^7.33.2",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.10"
+  }
+}
+
+| Tool                        | Purpose                                                    |
+| --------------------------- | ---------------------------------------------------------- |
+| `vite`                      | Fast frontend tooling for development and build            |
+| `react-router-dom`          | Page navigation (e.g., map view, report form, admin panel) |
+| `leaflet` & `react-leaflet` | For showing issue pins on a map                            |
+| `axios`                     | HTTP client to interact with backend APIs                  |
+| `eslint`                    | Optional, for code quality and formatting                  |
+| `@types/*`                  | TypeScript type declarations for libraries                 |
