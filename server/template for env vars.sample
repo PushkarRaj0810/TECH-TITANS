@@ -1,0 +1,42 @@
+# PostgreSQL (PostGIS) connection (must include 'postgis' extension created manually)
+DATABASE_URL=postgres://postgres:postgres@postgres:5432/civicdb
+# or use separate env vars:
+# POSTGRES_HOST=postgres
+# POSTGRES_PORT=5432
+# POSTGRES_USER=postgres
+# POSTGRES_PASSWORD=postgres
+# POSTGRES_DB=civicdb
+
+# Application server
+PORT=4000
+
+# AWS S3 configuration for presigned upload flows (up to 35 photos)
+AWS_REGION=us-east-1
+S3_BUCKET=civictrack-uploads
+
+# Access credentials (DO NOT commit real keys)
+AWS_ACCESS_KEY_ID=your_aws_access_key
+AWS_SECRET_ACCESS_KEY=your_aws_secret_key
+
+# SMTP / Email (if using Nodemailer)
+# SMTP_HOST=smtp.mailprovider.com
+# SMTP_PORT=587
+# SMTP_USER=you@example.com
+# SMTP_PASS=strong_email_password
+
+# (Optional) Feature toggles / thresholds
+# FLAG_THRESHOLD=3
+# UPLOAD_EXPIRATION_SECS=900
+
+| Variable                          | Purpose                                                                                                                                                                                                               |
+| --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `DATABASE_URL` or `POSTGRES_*`    | Standard for connecting TypeORM or any Postgres client; optionally swap for RDS or external hosts supported by db schemas (\[Postgres env usage guidance]\([reddit.com][1], [stackoverflow.com][2], [medium.com][3])) |
+| `AWS_*` credentials & `S3_BUCKET` | Required to generate S3 presigned URLs securely; follows AWS recommended setup for bypassing file uploads (\[AWS Node.js presigned URL pattern]\([medium.com][3]))                                                    |
+| `PORT`                            | Sets Express listen port (default 4000)                                                                                                                                                                               |
+| `SMTP_*`                          | Used to notify users via email upon status changes                                                                                                                                                                    |
+| `FLAG_THRESHOLD` (optional)       | Helps configure auto-hiding logic (e.g. hide after ≥3 flags)                                                                                                                                                          |
+| `UPLOAD_EXPIRATION_SECS`          | Controls max validity of presigned uploads (typically 15 minutes)                                                                                                                                                     |
+
+[1]: https://www.reddit.com/r/golang/comments/1e3heto/how_do_you_all_usually_store_your_env_variables/?utm_source=chatgpt.com "How do you all usually store your ENV variables in development?"
+[2]: https://stackoverflow.com/questions/59390694/how-to-make-postgresql-use-environment-variables-from-env-file-after-re-creatin?utm_source=chatgpt.com "How to make PostgresQL use environment variables from .env file ..."
+[3]: https://medium.com/%40joshuaombasa/express-js-application-upload-flow-with-aws-s3-e06a2b50bb01?utm_source=chatgpt.com "Using AWS S3 for data storage in an application | by Joshua Ombasa"

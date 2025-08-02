@@ -1,0 +1,41 @@
+civictrack-integrator/
+│
+├── docker-compose.yml         
+├── README.md                  
+└── server/
+    ├── package.json
+    ├── tsconfig.json
+    ├── .env.sample
+    └── src/
+        ├── app.ts
+        ├── db.ts
+        ├── models/
+        │   ├── Issue.ts
+        │   ├── User.ts
+        │   ├── Flag.ts
+        │   └── StatusLog.ts
+        ├── routes/
+        │   ├── issues.ts
+        │   ├── uploads.ts
+        │   ├── flags.ts
+        │   ├── admin.ts
+        │   └── open311.ts    
+        └── services/
+            └── email.ts
+└── client/
+    ├── package.json
+    ├── tsconfig.json
+    └── src/
+        ├── pages/
+        │   ├── index.tsx
+        │   ├── report.tsx
+        │   └── issue/[id].tsx
+        ├── api/
+        │   └── upload-url.ts
+        ├── components/
+        │   ├── MapPicker.tsx
+        │   ├── FilterBar.tsx
+        │   ├── IssueCard.tsx
+        │   └── AdminDashboard.tsx
+        └── hooks/
+            └── useRadiusFilter.ts
